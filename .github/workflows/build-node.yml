@@ -1,0 +1,20 @@
+name: Build node app
+on: 
+  push:
+    branches:
+      - "master"
+jobs:
+  pullrepo:
+    name: pull code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18.12.1'
+      - run: npm i
+      - run: npm run test
+      - run: npm run build
+      - run: npm run build:webpack
+      # takes only first 15 chars of the commit hash
+      - run: echo version-${{ github.sha }} | cut -c-15

@@ -1,3 +1,15 @@
-import { myMathAdd } from "./math";
+import { AuthService } from "./services/authServices";
 
-console.log("Addition of 2 + 3: ", myMathAdd(2, 3));
+(async () => {
+  const service = new AuthService({
+    createUser(name, email, age) {
+      return Promise.resolve({
+        age,
+        email,
+        id: 1,
+        name
+      });
+    },
+  });
+  console.log("Create user function: ", await service.createUser({age: 22, email: 'manuaradhya07@gmail.com', name: 'Prajwal'}));
+})();
